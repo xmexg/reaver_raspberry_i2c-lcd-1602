@@ -36,8 +36,6 @@
    
    如果你的也是(20,7),则不需要改 /main_i2c_lcd1602.c 里面的代码,否则,请参考 /main_i2c_lcd1602.c 中的 第7行注释,改掉"0x27" 这个字符
    
-   ![image](./media/main_i2c_lcd1602.c-code.png)
-   
  - 接线
    
    | lcd1602 | 树莓派 |

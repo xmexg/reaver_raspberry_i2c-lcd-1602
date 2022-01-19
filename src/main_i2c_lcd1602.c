@@ -99,24 +99,24 @@ void makerobo_write(int lcd_x, int lcd_y, char data[]){
 	}
 }
 
-void thestart(int printline,char *text){
-	//makerobo_clear();                                 // 清空显示
-	makerobo_fd = wiringPiI2CSetup(makerobo_LCDAddr);  //初始化地址
-	makerobo_init();                                  //初始化显示屏
-	char firstline[] = "Hello!";
-	char secondline[] = "I'm qingguo.";
-	while(1)
-	{
-		printf("请输入第一行:");
-		fgets(firstline,16,stdin);					//显示器只能显示16个字
-		printf("请输入第二行:");
-		fgets(secondline,15,stdin);
-		//makerobo_clear();                                 // 清空显示
-		makerobo_write(0, 0, text);                    //第一行显示
-		makerobo_write(0, 1, secondline);              //第二行显示
-		delay(2000);                                      // 延时2s
-	}
-}
+// void thestart(int printline,char *text){
+// 	//makerobo_clear();                                 // 清空显示
+// 	makerobo_fd = wiringPiI2CSetup(makerobo_LCDAddr);  //初始化地址
+// 	makerobo_init();                                  //初始化显示屏
+// 	char firstline[] = "Hello!";
+// 	char secondline[] = "I'm qingguo.";
+// 	while(1)
+// 	{
+// 		printf("请输入第一行:");
+// 		fgets(firstline,16,stdin);					//显示器只能显示16个字
+// 		printf("请输入第二行:");
+// 		fgets(secondline,15,stdin);
+// 		//makerobo_clear();                                 // 清空显示
+// 		makerobo_write(0, 0, text);                    //第一行显示
+// 		makerobo_write(0, 1, secondline);              //第二行显示
+// 		delay(2000);                                      // 延时2s
+// 	}
+// }
 
 //初始化，要把这一段在第一次发送文字之前运行一次
 void i2c_initialize() {
@@ -134,7 +134,7 @@ int main_lcd1602(int x,int y,char *text,int clear){
 		makerobo_clear();                                 // 清空显示
 	 //puts("清空显示器");
 	}
-	printf("[@] 向1602传入了：x=%d,y=%d,char=%s\n",x,y,text);
+	//printf("[@] 向1602传入了：x=%d,y=%d,char=%s\n",x,y,text);
 	if(x>16) x=16;
 	if(x<0) x=0;
 	if(y>1) y=1;
@@ -144,6 +144,6 @@ int main_lcd1602(int x,int y,char *text,int clear){
 	//makerobo_clear();                                 // 清空显示
 	makerobo_write(x, y, text);                    //第一行显示
 	//makerobo_write(0, 1, secondline);              //第二行显示
-	delay(300);                                      // 延时0.3s
+	delay(500);                                      // 延时0.3s
 	return 0;
 }

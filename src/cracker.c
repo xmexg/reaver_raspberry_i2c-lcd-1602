@@ -86,7 +86,7 @@ void crack()
 		 * actually exists, so wait for a beacon packet 
 		 */
 		cprintf(INFO, "[+] 等待扫描: %s\n", bssid);
-		main_lcd1602(0,0,"Waiting",1);
+		main_lcd1602(0,0,"Waiting...  ",0);
 		//main_lcd1602(0,1,bssid,0);//显示器太小
 		read_ap_beacon();
 		cprintf(INFO, "[+] 从 %s 收到 信标\n", bssid);
@@ -97,7 +97,7 @@ void crack()
 		if(get_max_pin_attempts() == -1)
 		{
 			cprintf(CRITICAL, "[X] 错误: 当前设备被列入黑名单,现在无法破解.\n");
-			main_lcd1602(0,0,"not supported",1);
+			//main_lcd1602(0,0,"not supported",0);
 			main_lcd1602(0,0,"blacklisted!",0);
 			return;
 		}
@@ -159,7 +159,7 @@ void crack()
 			while(get_ignore_locks() == 0 && is_wps_locked())
                         {
                                 cprintf(WARNING, "[!] 警告:检测到AP速率限制，在重新Pin之前等待 %d 秒\n", get_lock_delay());
-								main_lcd1602(7,1,"waiting ",0);
+								main_lcd1602(0,0,"waiting...  ",0);
 				pcap_sleep(get_lock_delay());
 				
                         }
@@ -184,7 +184,7 @@ void crack()
 				cprintf(WARNING, "[+] 尝试Pin: \"%s\"\n", pin);
 				char strtemp_Pin[13]={"Pin:"};//这是我新加的lcd1602用的
 				strcat(strtemp_Pin,pin);//把pin码连接到"Pin:"后面
-				main_lcd1602(0,0,strtemp_Pin,1);
+				main_lcd1602(0,0,strtemp_Pin,0);
 			}
 
 			/* 
@@ -198,7 +198,7 @@ void crack()
 				{
 					assoc_fail_count = 0;
 					cprintf(CRITICAL, "[!] 警告: 无法连接: %s (ESSID: %s)\n", bssid, get_ssid());
-					main_lcd1602(7,1,"ERR ",1);
+					main_lcd1602(0,0,"Fail connect",0);
 				}
 				else
 				{
@@ -232,7 +232,7 @@ void crack()
 				/* Unexpected timeout or EAP failure...try this pin again */
 				default:
 					cprintf(VERBOSE, "[!] WPS破解失败(code: 0x%.2X), 正在再次尝试该pin码\n", result);
-					main_lcd1602(7,1,"retrying",0);
+					main_lcd1602(0,0,"FailManyPins",0);
 					fail_count++;
 					break;
 			}
@@ -242,7 +242,7 @@ void crack()
 			{
 				cprintf(WARNING, "[!] 警告: 现在已经连续失败 %d 次\n", fail_count);
 				
-				main_lcd1602(11,1,"ERROR",0);
+				main_lcd1602(0,0,"Fail The Pin",0);
 				fail_count = 0;
 				pcap_sleep(get_fail_delay());
 			}
@@ -292,7 +292,7 @@ void crack()
 	else 
 	{
 		cprintf(CRITICAL, "[-] 无法初始化网卡接口:'%s'\n", get_iface());
-		main_lcd1602(9,1,"ERROR",0);
+		main_lcd1602(0,0,"ErrInterFace",1);
 	}
 }
 
@@ -368,12 +368,11 @@ void display_status(float pin_count, time_t start_time)
 	char strtemp6[7];//这是我新加的lcd1602用的
 	sprintf(strtemp6,"%.2f",percentage);
 	char strtemp8[9];//这是我新加的lcd1602用的
-	main_lcd1602(0,0,strtemp6,1);
+	main_lcd1602(0,1,strtemp6,1);
 	sprintf(strtemp8,"%d",average);
-	strcat(strtemp8,"s ");
+	strcat(strtemp8,"s/p");
 	sprintf(strtemp5,"%d",pin_count);
 	strcat(strtemp8,strtemp5);
-	strcat(strtemp8,"P");
-	main_lcd1602(7,1,strtemp8,0);
+	main_lcd1602(6,1,strtemp8,0);
 	return;
 }

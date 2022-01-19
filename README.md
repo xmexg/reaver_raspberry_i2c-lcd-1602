@@ -24,13 +24,19 @@
    
    在新的对话框上选择 `是` 回车
    
+   ![image](./media/GPIO_cmd.gif)
+   
  - 得到自己的 i2c 硬件地址
    
    树莓派命令行中输入 `i2cdetect -y 1` (树莓派类型不同 代码最后的"1"也可能是"0"(`i2cdetect -y 0`))
    
-   按输出的表 横纵坐标交叉,得到自己的i2c地址
+   按输出的表 看看是不是在 (20,7) 上有信号
+   
+   ![image](./media/i2cdetect.png)
    
    如果你的也是(20,7),则不需要改 /main_i2c_lcd1602.c 里面的代码,否则,请参考 /main_i2c_lcd1602.c 中的 第7行注释,改掉"0x27" 这个字符
+   
+   ![image](./media/main_i2c_lcd1602.c-code.png)
    
  - 接线
    
@@ -40,6 +46,8 @@
    | SCL | SCL.1 |
    | VCC | 随便找个5v的引脚 |
    | GND | 随便找个GND |
+   
+   ![image](./media/GPIO_wire.jpg)
    
 ### reaver安装 ###
     

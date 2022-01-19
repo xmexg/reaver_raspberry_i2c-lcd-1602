@@ -45,6 +45,8 @@
    | VCC | 随便找个5v的引脚 |
    | GND | 随便找个GND |
    
+   ![image](./media/40pin.png)
+   
    ![image](./media/GPIO_wire.jpg)
    
 ### reaver安装 ###
